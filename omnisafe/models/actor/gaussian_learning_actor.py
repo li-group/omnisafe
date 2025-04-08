@@ -57,7 +57,7 @@ class GaussianLearningActor(GaussianActor):
         self.mean: nn.Module = build_mlp_network(
             sizes=[self._obs_dim, *self._hidden_sizes, self._act_dim],
             activation=activation,
-            weight_initialization_mode=weight_initialization_mode,
+            weight_initialization_mode=weight_initialization_mode,output_activation = 'tanh'
         )
         self.log_std: nn.Parameter = nn.Parameter(torch.zeros(self._act_dim), requires_grad=True)
 
