@@ -610,7 +610,7 @@ class ExperimentGrid:
                                         'cost': cos,
                                         'ep_len': num_episodes,
                                     }
-                                    with open("data_"+str(model.name)+".pkl","wb") as file:
+                                    with open(os.path.dirname(single_seed.path)+"/data_"+str(model.name)+".pkl","wb") as file:
                                         pickle.dump(data, file)
                             model_dir.close()
                         seed_dir.close()
