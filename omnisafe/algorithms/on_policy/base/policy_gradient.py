@@ -61,12 +61,15 @@ class PolicyGradient(BaseAlgo):
             AssertionError: If the number of steps per epoch is not divisible by the number of
                 environments.
         """
+        #print("This is Policy Gradient")
         self._env: OnPolicyAdapter = OnPolicyAdapter(
             self._env_id,
             self._cfgs.train_cfgs.vector_env_nums,
             self._seed,
             self._cfgs,
         )
+        #print()
+       
         assert (self._cfgs.algo_cfgs.steps_per_epoch) % (
             distributed.world_size() * self._cfgs.train_cfgs.vector_env_nums
         ) == 0, 'The number of steps per epoch is not divisible by the number of environments.'
@@ -187,19 +190,10 @@ class PolicyGradient(BaseAlgo):
             what_to_save['obs_normalizer'] = obs_normalizer
         self._logger.setup_torch_saver(what_to_save)
         self._logger.torch_save()
-
-        self._logger.register_key(
-            'Metrics/EpRet',
-            window_length=self._cfgs.logger_cfgs.window_lens,
-        )
-        self._logger.register_key(
-            'Metrics/EpCost',
-            window_length=self._cfgs.logger_cfgs.window_lens,
-        )
-        self._logger.register_key(
-            'Metrics/EpLen',
-            window_length=self._cfgs.logger_cfgs.window_lens,
-        )
+        print(self._cfgs)
+        self._logger.register_key('Metrics/EpRet', window_length=int(self._cfgs.algo_cfgs.steps_per_epoch/self._cfgs['env_cfgs']['T']),min_and_max=True)
+        self._logger.register_key('Metrics/EpCost', window_length=int(self._cfgs.algo_cfgs.steps_per_epoch/self._cfgs['env_cfgs']['T']),min_and_max=True)
+        self._logger.register_key('Metrics/EpLen', window_length=50)
 
         self._logger.register_key('Train/Epoch')
         self._logger.register_key('Train/Entropy')
@@ -233,7 +227,7 @@ class PolicyGradient(BaseAlgo):
 
         # register environment specific keys
         for env_spec_key in self._env.env_spec_keys:
-            self.logger.register_key(env_spec_key)
+            self.logger.register_key(env_spec_key,window_length=int(self._cfgs.algo_cfgs.steps_per_epoch/self._cfgs['env_cfgs']['T']))
 
     def learn(self) -> tuple[float, float, float]:
         """This is main function for algorithm update.
