@@ -137,17 +137,12 @@ class Logger:  # pylint: disable=too-many-instance-attributes
             project: str = self._config.logger_cfgs.get('wandb_project', 'omnisafe')
             name: str = f'{exp_name}-{relpath}'
             print('project', project, 'name', name)
-            wandb.init(
-                project=project,
-                name=name,
-                dir=self._log_dir,
-                config=config,
-            )
+            wandb.init(project=project, name=name, dir=self._log_dir, config=config)
             if config is not None:
-                wandb.config.update(config)  # type: ignore
+                wandb.config.update(config)
             if models is not None:
                 for model in models:
-                    wandb.watch(model)  # type: ignore
+                    wandb.watch(model)
 
     def log(self, msg: str, color: str = 'green', bold: bool = False) -> None:
         """Log the message to the console and the file.
@@ -323,6 +318,7 @@ class Logger:  # pylint: disable=too-many-instance-attributes
 
         Update the current row with the data stored in the logger.
         """
+        #print(self._data)
         for key in self._data:
             old_data = self._current_row[key]
             if self._headers_minmax[key]:
@@ -334,7 +330,7 @@ class Logger:  # pylint: disable=too-many-instance-attributes
             else:
                 mean = self.get_stats(key, False)[0]
                 self._current_row[key] = mean
-
+                #print(self._data[key])
             if self._headers_delta[key]:
                 self._current_row[f'{key}/Delta'] = mean - old_data
 
@@ -358,6 +354,8 @@ class Logger:  # pylint: disable=too-many-instance-attributes
         """
         assert key in self._current_row, f'Key {key} has not been registered'
         vals = self._data[key]
+        #print(key, 'vals', vals,
+             # 'type', type(vals), 'len', len(vals), 'min_and_max', min_and_max)
         if isinstance(vals, deque):
             vals = list(vals)
 
@@ -366,7 +364,7 @@ class Logger:  # pylint: disable=too-many-instance-attributes
                 torch.tensor(vals).to(os.getenv('OMNISAFE_DEVICE', 'cpu')),
                 with_min_and_max=True,
             )
-            return mean.item(), min_val.mean().item(), max_val.mean().item(), std.item()
+            return mean.item(), min_val.min().item(), max_val.max().item(), std.item()
 
         mean, std = dist_statistics_scalar(  # pylint: disable=unbalanced-tuple-unpacking
             torch.tensor(vals).to(os.getenv('OMNISAFE_DEVICE', 'cpu')),
