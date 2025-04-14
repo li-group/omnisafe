@@ -50,6 +50,7 @@ class GaussianLearningActor(GaussianActor):
         hidden_sizes: list[int],
         activation: Activation = 'relu',
         weight_initialization_mode: InitFunction = 'kaiming_uniform',
+        output_activation: Activation = 'relu',
     ) -> None:
         """Initialize an instance of :class:`GaussianLearningActor`."""
         super().__init__(obs_space, act_space, hidden_sizes, activation, weight_initialization_mode)
@@ -57,7 +58,7 @@ class GaussianLearningActor(GaussianActor):
         self.mean: nn.Module = build_mlp_network(
             sizes=[self._obs_dim, *self._hidden_sizes, self._act_dim],
             activation=activation,
-            weight_initialization_mode=weight_initialization_mode,output_activation = 'tanh'
+            weight_initialization_mode=weight_initialization_mode,output_activation = output_activation
         )
         self.log_std: nn.Parameter = nn.Parameter(torch.zeros(self._act_dim), requires_grad=True)
 
