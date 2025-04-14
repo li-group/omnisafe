@@ -73,6 +73,7 @@ class ActorCritic(nn.Module):
             hidden_sizes=model_cfgs.actor.hidden_sizes,
             activation=model_cfgs.actor.activation,
             weight_initialization_mode=model_cfgs.weight_initialization_mode,
+            output_activation=model_cfgs.actor.output_activation,
         ).build_actor(
             actor_type=model_cfgs.actor_type,
         )
@@ -87,7 +88,7 @@ class ActorCritic(nn.Module):
         ).build_critic(critic_type='v')
         self.add_module('actor', self.actor)
         self.add_module('reward_critic', self.reward_critic)
-
+        print(self.actor)
         if model_cfgs.actor.lr is not None:
             self.actor_optimizer: optim.Optimizer
             self.actor_optimizer = optim.Adam(self.actor.parameters(), lr=model_cfgs.actor.lr)
