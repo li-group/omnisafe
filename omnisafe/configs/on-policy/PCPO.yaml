@@ -116,6 +116,8 @@ defaults:
       hidden_sizes: [64, 64]
       # activation function
       activation: tanh
+      # output activation function
+      output_activation: tanh
       # out_activation: tanh
       # learning rate
       lr: ~
@@ -126,3 +128,6 @@ defaults:
       activation: tanh
       # learning rate
       lr: 0.001
+  env_cfgs:
+    T: 2
+
