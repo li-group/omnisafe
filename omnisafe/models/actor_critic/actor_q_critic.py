@@ -74,7 +74,7 @@ class ActorQCritic(nn.Module):
             act_space=act_space,
             hidden_sizes=model_cfgs.actor.hidden_sizes,
             activation=model_cfgs.actor.activation,
-            weight_initialization_mode=model_cfgs.weight_initialization_mode,
+            weight_initialization_mode=model_cfgs.weight_initialization_mode,model_cfgs.actor.output_activation
         ).build_actor(
             actor_type=model_cfgs.actor_type,
         )
