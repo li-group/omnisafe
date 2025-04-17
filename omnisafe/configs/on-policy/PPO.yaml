@@ -109,6 +109,7 @@ defaults:
       # activation function
       activation: tanh
       # out_activation: tanh
+      output_activation: relu
       # learning rate
       lr: 0.0003
     critic:
@@ -118,6 +119,9 @@ defaults:
       activation: tanh
       # learning rate
       lr: 0.0003
+  env_cfgs:
+    T: 2
+
 
 ShadowHandCatchOver2UnderarmSafeFinger:
   # training configurations
