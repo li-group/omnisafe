@@ -113,6 +113,7 @@ defaults:
       # activation function
       activation: tanh
       # out_activation: tanh
+      output_activation: relu
       # learning rate
       lr: 0.0003
     critic:
