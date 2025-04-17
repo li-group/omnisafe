@@ -321,14 +321,4 @@ SafeMetaDrive:
   # environment specific configurations
   env_cfgs:
   # safe meta drive configurations. More details refer to https://github.com/decisionforce/EGPO
-    meta_drive_config:
-      # max iterations of interactions
-      horizon: 1500
-      # whether to use random traffic
-      random_traffic: False
-      # the penalty when crash into other vehicles
-      crash_vehicle_penalty: 1.
-      # the penalty when crash into other objects
-      crash_object_penalty: 0.5
-      # the penalty when out of road
-      out_of_road_penalty: 1.
+    T: 2
