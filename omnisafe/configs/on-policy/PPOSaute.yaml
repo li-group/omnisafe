@@ -126,6 +126,9 @@ defaults:
       activation: tanh
       # learning rate
       lr: 0.0003
+  env_cfgs:
+    T: 2
+
 
 SafetyCarCircle1-v0:
   # algorithm configurations
