@@ -454,9 +454,9 @@ class Evaluator:  # pylint: disable=too-many-instance-attributes
                         )
                 obs, rew, cost, terminated, truncated, _ = self._env.step(act)
                 if 'Saute' in self._cfgs['algo'] or 'Simmer' in self._cfgs['algo']:
-                    device = cost.device
-                    self._safety_obs.to(device) -= cost.unsqueeze(-1) / self._safety_budget.to(device)
-                    self._safety_obs.to(device) /= self._cfgs.algo_cfgs.saute_gamma.to(device)
+                    cost_cpu = cost.cpu()
+                    self._safety_obs -= cost_cpu.unsqueeze(-1) / self._safety_budget
+                    self._safety_obs /= self._cfgs.algo_cfgs.saute_gamma
 
                 ep_ret += rew.item()
                 ep_cost += (cost_criteria**length) * cost.item()
