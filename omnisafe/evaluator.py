@@ -454,6 +454,10 @@ class Evaluator:  # pylint: disable=too-many-instance-attributes
                         )
                 obs, rew, cost, terminated, truncated, _ = self._env.step(act)
                 if 'Saute' in self._cfgs['algo'] or 'Simmer' in self._cfgs['algo']:
+                    print(cost.device)
+                    print(self._safety_obs.device)
+                    print(self._safety_budget.device)
+                    print(self._cfgs.algo_cfgs.saute_gamma.device)
                     self._safety_obs -= cost.unsqueeze(-1) / self._safety_budget
                     self._safety_obs /= self._cfgs.algo_cfgs.saute_gamma
 
