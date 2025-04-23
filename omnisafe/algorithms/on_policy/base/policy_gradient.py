@@ -191,10 +191,18 @@ class PolicyGradient(BaseAlgo):
         self._logger.setup_torch_saver(what_to_save)
         self._logger.torch_save()
         print(self._cfgs)
-        self._logger.register_key('Metrics/EpRet', window_length=int(self._cfgs.algo_cfgs.steps_per_epoch/self._cfgs['env_cfgs']['T']),min_and_max=True)
-        self._logger.register_key('Metrics/EpCost', window_length=int(self._cfgs.algo_cfgs.steps_per_epoch/self._cfgs['env_cfgs']['T']),min_and_max=True)
-        self._logger.register_key('Metrics/EpLen', window_length=50)
-
+        self._logger.register_key(
+            'Metrics/EpRet',
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
+        )
+        self._logger.register_key(
+            'Metrics/EpCost',
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
+        )
+        self._logger.register_key(
+            'Metrics/EpLen',
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
+        )
         self._logger.register_key('Train/Epoch')
         self._logger.register_key('Train/Entropy')
         self._logger.register_key('Train/KL')
@@ -227,7 +235,7 @@ class PolicyGradient(BaseAlgo):
 
         # register environment specific keys
         for env_spec_key in self._env.env_spec_keys:
-            self.logger.register_key(env_spec_key,window_length=int(self._cfgs.algo_cfgs.steps_per_epoch/self._cfgs['env_cfgs']['T']))
+            self.logger.register_key(env_spec_key,window_length=self._cfgs.logger_cfgs.window_lens)
 
     def learn(self) -> tuple[float, float, float]:
         """This is main function for algorithm update.
