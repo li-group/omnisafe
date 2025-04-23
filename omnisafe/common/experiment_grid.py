@@ -490,6 +490,7 @@ class ExperimentGrid:
         with open(path, 'a+', encoding='utf-8') as f:
             for idx, _ in enumerate(variants):
                 f.write(exp_names[idx] + ': ')
+                print(results[idx])
                 reward, cost, ep_len = results[idx].result()
                 f.write('reward:' + str(round(reward, 2)) + ',')
                 f.write('cost:' + str(round(cost, 2)) + ',')
