@@ -531,9 +531,9 @@ class ExperimentGrid:
         algo_type = ALGORITHM2TYPE.get(variant['algo'], '')
         cfg_path = os.path.join(path, '..', 'configs', algo_type, f"{variant['algo']}.yaml")
         default_config = load_yaml(cfg_path)['defaults']
-        default_config.setdefault('model_cfgs','actor')
-        default_config['model_cfgs'].setdefault('actor','output_activation')
-        default_config['model_cfgs']['actor']['output_activation'].setdefault('actor','relu')
+        default_config.setdefault('model_cfgs', {})
+        default_config['model_cfgs'].setdefault('actor', {})
+        default_config['model_cfgs']['actor'].setdefault('output_activation', 'relu')
         recursive_check_config(variant, default_config, exclude_keys=('algo', 'env_id','env_cfgs'))
 
     def _init_statistical_tools(self) -> None:
