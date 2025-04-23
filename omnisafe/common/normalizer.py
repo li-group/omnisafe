@@ -129,6 +129,7 @@ class Normalizer(nn.Module):
         else:
             count_raw = raw_data.shape[0]
             count = self._count + count_raw
+            raw_data = raw_data.float()
             mean_raw = torch.mean(raw_data, dim=0)
             delta = mean_raw - self._mean
             self._mean += delta * count_raw / count
