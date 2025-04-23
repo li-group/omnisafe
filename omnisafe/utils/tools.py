@@ -264,6 +264,7 @@ def recursive_check_config(
         default_config['model_cfgs']['actor'].setdefault('output_activation', 'relu')
     for key in config:
         if key not in default_config and key not in exclude_keys:
+            print(default_config.keys())
             raise KeyError(f'Invalid key: {key}')
         if config[key] is None:
             return
