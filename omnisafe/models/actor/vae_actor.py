@@ -50,7 +50,7 @@ class VAE(Actor):
         output_activation: Activation = 'relu',
     ) -> None:
         """Initialize an instance of :class:`VAE`."""
-        super().__init__(obs_space, act_space, hidden_sizes, activation, weight_initialization_mode)
+        super().__init__(obs_space, act_space, hidden_sizes, activation, weight_initialization_mode,output_activation)
         self._latent_dim = self._act_dim * 2
 
         self._encoder = build_mlp_network(
