@@ -90,7 +90,7 @@ class ActorBuilder:
                 self._act_space,
                 self._hidden_sizes,
                 activation=self._activation,
-                weight_initialization_mode=self._weight_initialization_mode,
+                weight_initialization_mode=self._weight_initialization_mode,output_activation=self.output_activation,
             )
         if actor_type == 'mlp':
             return MLPActor(
@@ -98,7 +98,7 @@ class ActorBuilder:
                 self._act_space,
                 self._hidden_sizes,
                 activation=self._activation,
-                weight_initialization_mode=self._weight_initialization_mode,
+                weight_initialization_mode=self._weight_initialization_mode,output_activation=self.output_activation,
             )
         if actor_type == 'vae':
             return VAE(
@@ -106,7 +106,7 @@ class ActorBuilder:
                 self._act_space,
                 self._hidden_sizes,
                 activation=self._activation,
-                weight_initialization_mode=self._weight_initialization_mode,
+                weight_initialization_mode=self._weight_initialization_mode,output_activation=self.output_activation,
             )
         if actor_type == 'perturbation':
             return PerturbationActor(
@@ -114,7 +114,7 @@ class ActorBuilder:
                 self._act_space,
                 self._hidden_sizes,
                 activation=self._activation,
-                weight_initialization_mode=self._weight_initialization_mode,
+                weight_initialization_mode=self._weight_initialization_mode,output_activation=self.output_activation,
             )
         raise NotImplementedError(
             f'Actor type {actor_type} is not implemented! '
