@@ -58,8 +58,7 @@ class MLPActor(Actor):
             sizes=[self._obs_dim, *self._hidden_sizes, self._act_dim],
             activation=activation,
             output_activation=output_activation,
-            weight_initialization_mode=weight_initialization_mode,output_activation = output_activation
-        )
+            weight_initialization_mode=weight_initialization_mode)
         self._noise: float = 0.1
 
     def predict(
