@@ -49,6 +49,7 @@ class MLPActor(Actor):
         activation: Activation = 'relu',
         output_activation: Activation = 'tanh',
         weight_initialization_mode: InitFunction = 'kaiming_uniform',
+        output_activation: Activation = 'relu',
     ) -> None:
         """Initialize an instance of :class:`MLPActor`."""
         super().__init__(obs_space, act_space, hidden_sizes, activation, weight_initialization_mode)
@@ -57,7 +58,7 @@ class MLPActor(Actor):
             sizes=[self._obs_dim, *self._hidden_sizes, self._act_dim],
             activation=activation,
             output_activation=output_activation,
-            weight_initialization_mode=weight_initialization_mode,
+            weight_initialization_mode=weight_initialization_mode,output_activation = output_activation
         )
         self._noise: float = 0.1
 
