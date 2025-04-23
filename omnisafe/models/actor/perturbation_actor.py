@@ -49,7 +49,7 @@ class PerturbationActor(Actor):
         act_space: OmnisafeSpace,
         hidden_sizes: List[int],
         activation: Activation = 'relu',
-        weight_initialization_mode: InitFunction = 'kaiming_uniform',
+        weight_initialization_mode: InitFunction = 'kaiming_uniform',output_activation: Activation = 'relu',
     ) -> None:
         """Initialize an instance of :class:`PerturbationActor`."""
         super().__init__(obs_space, act_space, hidden_sizes, activation, weight_initialization_mode)
@@ -58,7 +58,7 @@ class PerturbationActor(Actor):
         self.perturbation = build_mlp_network(
             sizes=[self._obs_dim + self._act_dim, *hidden_sizes, self._act_dim],
             activation=activation,
-            output_activation='tanh',
+            output_activation = output_activation,
             weight_initialization_mode=weight_initialization_mode,
         )
         self._phi = torch.nn.Parameter(torch.tensor(0.05))
