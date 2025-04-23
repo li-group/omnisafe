@@ -52,7 +52,7 @@ class Actor(nn.Module, ABC):
         act_space: OmnisafeSpace,
         hidden_sizes: list[int],
         activation: Activation = 'relu',
-        weight_initialization_mode: InitFunction = 'kaiming_uniform',
+        weight_initialization_mode: InitFunction = 'kaiming_uniform',output_activation: Activation = 'relu',
     ) -> None:
         """Initialize an instance of :class:`Actor`."""
         nn.Module.__init__(self)
@@ -60,6 +60,7 @@ class Actor(nn.Module, ABC):
         self._act_space: OmnisafeSpace = act_space
         self._weight_initialization_mode: InitFunction = weight_initialization_mode
         self._activation: Activation = activation
+        self._output_activation_activation: Activation = activation
         self._hidden_sizes: list[int] = hidden_sizes
         self._after_inference: bool = False
 
