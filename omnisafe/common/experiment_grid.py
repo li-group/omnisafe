@@ -532,7 +532,7 @@ class ExperimentGrid:
         cfg_path = os.path.join(path, '..', 'configs', algo_type, f"{variant['algo']}.yaml")
         default_config = load_yaml(cfg_path)['defaults']
         default_config['model_cfgs']['actor']['output_activation'] = 'relu'
-        recursive_check_config(variant, default_config, exclude_keys=('algo', 'env_id','output_activation'))
+        recursive_check_config(variant, default_config, exclude_keys=('algo', 'env_id','env_cfgs'))
 
     def _init_statistical_tools(self) -> None:
         """Initialize statistical tools."""
