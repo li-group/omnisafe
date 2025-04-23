@@ -249,7 +249,7 @@ class DDPG(BaseAlgo):
         self._logger.register_key('Time/FPS')
         # register environment specific keys
         for env_spec_key in self._env.env_spec_keys:
-            self.logger.register_key(env_spec_key)
+            self.logger.register_key(env_spec_key,window_length=self._cfgs.logger_cfgs.window_lens)
 
     def learn(self) -> tuple[float, float, float]:
         """This is main function for algorithm update.
