@@ -83,9 +83,18 @@ class BaseOffline(BaseAlgo):
             config=self._cfgs,
         )
 
-        self._logger.register_key('Metrics/EpRet')
-        self._logger.register_key('Metrics/EpCost')
-        self._logger.register_key('Metrics/EpLen')
+        self._logger.register_key(
+            'Metrics/EpRet',
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
+        )
+        self._logger.register_key(
+            'Metrics/EpCost',
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
+        )
+        self._logger.register_key(
+            'Metrics/EpLen',
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
+        )
 
         self._logger.register_key('Time/Total')
         self._logger.register_key('Time/Epoch')
@@ -94,6 +103,8 @@ class BaseOffline(BaseAlgo):
 
         self._logger.register_key('Train/Epoch')
         self._logger.register_key('TotalSteps')
+        for env_spec_key in self._env.env_spec_keys:
+            self.logger.register_key(env_spec_key,window_length=self._cfgs.logger_cfgs.window_lens)
 
     def learn(self) -> tuple[float, float, float]:
         """Learn the policy."""
