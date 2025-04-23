@@ -192,13 +192,18 @@ class PETS(BaseAlgo):
 
         self._logger.register_key('Train/Epoch')
         self._logger.register_key('TotalEnvSteps')
-        self._logger.register_key('Metrics/EpRet', window_length=50)
-        self._logger.register_key('Metrics/EpCost', window_length=50)
-        self._logger.register_key('Metrics/EpLen', window_length=50)
-        if self._cfgs.evaluation_cfgs.use_eval:
-            self._logger.register_key('EvalMetrics/EpRet', window_length=5)
-            self._logger.register_key('EvalMetrics/EpCost', window_length=5)
-            self._logger.register_key('EvalMetrics/EpLen', window_length=5)
+        self._logger.register_key(
+            'Metrics/EpRet',
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
+        )
+        self._logger.register_key(
+            'Metrics/EpCost',
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
+        )
+        self._logger.register_key(
+            'Metrics/EpLen',
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
+        )
         self._logger.register_key('Loss/DynamicsTrainMseLoss')
         self._logger.register_key('Loss/DynamicsValMseLoss')
 
@@ -219,8 +224,10 @@ class PETS(BaseAlgo):
             self._logger.register_key('Time/Eval')
         self._logger.register_key('Time/Epoch')
         self._logger.register_key('Time/FPS')
+        for env_spec_key in self._env.env_spec_keys:
+            self.logger.register_key(env_spec_key,window_length=self._cfgs.logger_cfgs.window_lens)
         self._save_model()
-
+        
     def _save_model(self) -> None:
         """Save the model."""
         # set up model saving
