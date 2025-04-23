@@ -108,6 +108,9 @@ class AlgoWrapper:
             if 'algo' in self.custom_cfgs:
                 self.custom_cfgs.pop('algo')
             # validate the keys of custom configuration
+            cfgs.setdefault('model_cfgs', {})
+            cfgs['model_cfgs'].setdefault('actor', {})
+            cfgs['model_cfgs']['actor'].setdefault('output_activation', 'relu')
             recursive_check_config(self.custom_cfgs, cfgs,exclude_keys = ('env_cfgs'))
             # update the cfgs from custom configurations
             cfgs.recurisve_update(self.custom_cfgs)
