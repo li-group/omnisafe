@@ -117,6 +117,7 @@ class Normalizer(nn.Module):
         assert raw_data.shape[1:] == self._shape, 'data shape must be equal to (batch_size, *shape)'
 
         if self._first:
+            raw_data = raw_data.float()
             self._mean = torch.mean(raw_data, dim=0)
             self._sumsq = torch.sum((raw_data - self._mean) ** 2, dim=0)
             self._count = torch.tensor(
