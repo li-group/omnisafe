@@ -260,9 +260,8 @@ def recursive_check_config(
         KeyError: If the key is not in default_config.
     """
     assert isinstance(config, dict), 'custom_cfgs must be a dict!'
-    print(default_config['model_cfgs']['actor'])
-    if 'output_activation' not in default_config['model_cfgs']['actor']:
-        default_config['model_cfgs']['actor']['output_activation'] = 'relu'
+    if 'model_cfgs' in default_config and 'actor' in default_config['model_cfgs']:
+        default_config['model_cfgs']['actor'].setdefault('output_activation', 'relu')
     for key in config:
         if key not in default_config and key not in exclude_keys:
             raise KeyError(f'Invalid key: {key}')
