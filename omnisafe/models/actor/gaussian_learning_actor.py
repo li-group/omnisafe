@@ -53,7 +53,7 @@ class GaussianLearningActor(GaussianActor):
         output_activation: Activation = 'relu',
     ) -> None:
         """Initialize an instance of :class:`GaussianLearningActor`."""
-        super().__init__(obs_space, act_space, hidden_sizes, activation, weight_initialization_mode)
+        super().__init__(obs_space, act_space, hidden_sizes, activation, weight_initialization_mode,output_activation)
 
         self.mean: nn.Module = build_mlp_network(
             sizes=[self._obs_dim, *self._hidden_sizes, self._act_dim],
