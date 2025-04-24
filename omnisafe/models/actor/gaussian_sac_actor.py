@@ -80,6 +80,8 @@ class GaussianSACActor(Actor):
         Returns:
             The normal distribution of the mean and standard deviation from the actor.
         """
+        device = next(self.net.parameters()).device
+        obs = obs.to(device)
         mean, log_std = self.net(obs).chunk(2, dim=-1)
         log_std = torch.clamp(log_std, min=-20, max=2)
         std = log_std.exp()
