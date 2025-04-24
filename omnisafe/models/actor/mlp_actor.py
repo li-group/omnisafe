@@ -76,6 +76,8 @@ class MLPActor(Actor):
             obs (torch.Tensor): Observation from environments.
             deterministic (bool, optional): Whether to use deterministic policy. Defaults to True.
         """
+        device = next(self.net.parameters()).device
+        obs = obs.to(device)
         action = self.net(obs)
         if deterministic:
             return action
