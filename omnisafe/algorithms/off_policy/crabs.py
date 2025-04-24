@@ -135,15 +135,15 @@ class CRABS(SAC):
         self._logger.torch_save()
         self._logger.register_key(
             'Metrics/RawPolicyEpRet',
-            window_length=self._cfgs.logger_cfgs.window_lens,
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
         )
         self._logger.register_key(
             'Metrics/RawPolicyEpCost',
-            window_length=self._cfgs.logger_cfgs.window_lens,
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
         )
         self._logger.register_key(
             'Metrics/RawPolicyEpLen',
-            window_length=self._cfgs.logger_cfgs.window_lens,
+            window_length=self._cfgs.logger_cfgs.window_lens,min_and_max = True
         )
 
     def _init(self) -> None:
