@@ -336,7 +336,7 @@ class DDPG(BaseAlgo):
             self._logger.dump_tabular()
 
             # save model to disk
-            if (epoch + 1) % self._cfgs.logger_cfgs.save_model_freq == 0:
+            if (epoch + 1) % self._cfgs.logger_cfgs.save_model_freq == 0 or (epoch + 1) == self._cfgs.train_cfgs.epochs:
                 self._logger.torch_save()
 
         ep_ret = self._logger.get_stats('Metrics/EpRet')[0]
